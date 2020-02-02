@@ -1,17 +1,33 @@
 const express = require("express");
+const studentDetail = require("./studentDetail");
 const app = express();
 
-app.get("/", (request, response) => {
-  response.send("Hello");
+/**
+ * Express is sort enough to figure out the
+ * response header's mime type (eg: JSON, html)
+ */
+app.get("/student", (request, response) => {
+  response.status(200);
+  response.json({ studentDetail });
+  /* or mulitple statement can be written together*/
+  //response.status(200).json({ student});
+
+  response.send(studentDetail);
+  response.send("<h1>Hello</h1>");
 });
 
-app.get("/profile", (request, response) => {
-  response.send("Profile Page");
+app.post("/student", (request, response) => {
+  response.send("Post Method called");
 });
 
-app.get("/signup", (request, response) => {
-  response.send("Welcome to Signup Page ");
-});
+/**
+ * app.get("/student", (request, response) => {
+  response.send(studentDetail);
+  response.send("<h1>Hello</h1>");
+}).get("/"), (req, res) => {
+    some response
+};
+ */
 
 const server = app.listen("8080", () => {
   console.log("Server Running on port : " + server.address().port + " .");
